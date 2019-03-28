@@ -5,17 +5,18 @@ const bodyParser=require('body-parser');
 const glob=require('glob');
 const keys=require('./config/keys');
 const path = require('path');
+const authRoute = require('./routes/authRoute');
+const bookRoute = require('./routes/bookRoute');
 
 const app=express();
 
 mongoose.connect(keys.mongoURI,{useNewUrlParser: true});
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
-//import routes
-glob.sync('routes/*.js',{root:__dirname}).forEach(file=>{
-	require(path.join(__dirname, file))(app);
-});
-
+//use routes
+ app.use('/auth',authRoute);
+ app.use('/books',bookRoute);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT,()=>{
