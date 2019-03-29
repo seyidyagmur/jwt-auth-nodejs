@@ -7,6 +7,7 @@ const keys=require('./config/keys');
 const path = require('path');
 const authRoute = require('./routes/authRoute');
 const bookRoute = require('./routes/bookRoute');
+const checkToken = require('./services/authFunction').checkToken;
 
 const app=express();
 
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 
 //use routes
  app.use('/auth',authRoute);
- app.use('/books',bookRoute);
+ app.use('/books',checkToken,bookRoute);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT,()=>{

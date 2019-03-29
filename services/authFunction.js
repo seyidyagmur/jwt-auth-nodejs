@@ -26,38 +26,34 @@ function verifyUniqueUser(req, res,next) {
 }
 
 function verifyCredentials(req,res,next){
-	const password = req.body.password;
-		User.findOne({ 
-		    $or: [ 
-		      { email: req.body.email },
-		      { username: req.body.email }
-		    ]
-		  },
-		   (err, user) => {
-		    if (user) {
-		      bcrypt.compare(password, user.password, (err, isValid) => {
-		        if (isValid) {
-		        	req.user=user;
-		          next();
-		        }
-		        else {
-		          res.json(Boom.badRequest('Incorrect password!'));
-		        }
-		      });
-		    } else {
-		      res.json(Boom.badRequest('Incorrect username or email!'));
-		    }
-		  });
-
+const password = req.body.password;
+	User.findOne({ 
+	    $or: [ 
+	      { email: req.body.email },
+	      { username: req.body.email }
+  	    ]
+	  },
+	   (err, user) => {
+	    if (user) {
+	      bcrypt.compare(password, user.password, (err, isValid) => {
+	        if (isValid) {
+	        	req.user=user;
+	          next();
+	        }
+	        else {
+	          res.json(Boom.badRequest('Incorrect password!'));
+	        }
+	      });
+	    } else {
+	      res.json(Boom.badRequest('Incorrect username or email!'));
+	    }
+	  });
 }
 
 function authorizationCheck(...allowedRoles){
-	console.log("allowedRoles")
-	console.log(allowedRoles)
 	return (req,res,next)=>{
 		let roles=allowedRoles;
 	  	let user=req.decoded;
-
 	  	 if(!req || !user) {
 	           next();
 	        }
@@ -66,30 +62,30 @@ function authorizationCheck(...allowedRoles){
 			if (!foundRoles.length) {
 	         return res.json(Boom.forbidden('You dont have permission to do this'));
 	        }
-	  	
 	  	next();
 	}
 }
-
 function checkToken(req,res,next)
-		{
-		  let token = req.headers['x-access-token'] || req.headers['authorization'];
-		  if (token.startsWith('Bearer ')) {
-		    token = token.split(' ')[1];
-		  }
-		  if (token) {
-		    jwt.verify(token, secret, (err, decoded) => {
-		      if (err) {
-		          res.json(Boom.badRequest('Token is not valid'));
+	{
+	  let token = req.headers['x-access-token'] || req.headers['authorization'] || "";
+	  if(token=="")
+	   return res.json(Boom.badRequest('Token is not valid'));
 
-		      } else {
-		        req.decoded = decoded;
-		        next();
-		      }
-		    });
-		  } else {
-		        res.json(Boom.badRequest('Token is not valid'));
-		  }
+	  if (token.startsWith('Bearer ')) {
+	    token = token.split(' ')[1];
+	  }
+	  if (token) {
+	    jwt.verify(token, secret, (err, decoded) => {
+	      if (err) {
+          res.json(Boom.badRequest('Token is not valid'));
+	      } else {
+	        req.decoded = decoded;
+	        next();
+	      }
+	    });
+	  } else {
+	       res.json(Boom.badRequest('Token is not valid'));
+	  }
 	}
 module.exports = {
   verifyUniqueUser: verifyUniqueUser,
