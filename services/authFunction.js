@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const Boom = require('boom');
+let jwt = require('jsonwebtoken');
+const secret=require('../config/keys').JWT_SECRET_KEY;
 
 function verifyUniqueUser(req, res,next) {
   User.findOne({ 
@@ -49,7 +51,49 @@ function verifyCredentials(req,res,next){
 
 }
 
+function authorizationCheck(...allowedRoles){
+	console.log("allowedRoles")
+	console.log(allowedRoles)
+	return (req,res,next)=>{
+		let roles=allowedRoles;
+	  	let user=req.decoded;
+
+	  	 if(!req || !user) {
+	           next();
+	        }
+	     const userRoles = user.roles || [];
+	     const foundRoles = roles.filter(r => userRoles.some(ur => ur === r));
+			if (!foundRoles.length) {
+	         return res.json(Boom.forbidden('You dont have permission to do this'));
+	        }
+	  	
+	  	next();
+	}
+}
+
+function checkToken(req,res,next)
+		{
+		  let token = req.headers['x-access-token'] || req.headers['authorization'];
+		  if (token.startsWith('Bearer ')) {
+		    token = token.split(' ')[1];
+		  }
+		  if (token) {
+		    jwt.verify(token, secret, (err, decoded) => {
+		      if (err) {
+		          res.json(Boom.badRequest('Token is not valid'));
+
+		      } else {
+		        req.decoded = decoded;
+		        next();
+		      }
+		    });
+		  } else {
+		        res.json(Boom.badRequest('Token is not valid'));
+		  }
+	}
 module.exports = {
   verifyUniqueUser: verifyUniqueUser,
-  verifyCredentials:verifyCredentials
+  verifyCredentials:verifyCredentials,
+  authorizationCheck:authorizationCheck,
+  checkToken:checkToken
 }
