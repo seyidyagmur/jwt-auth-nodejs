@@ -8,7 +8,8 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 	router.get('/{id}',async (req,res)=>{
       const _id = req.params.id;
       Book.findOne({_id}).select('-__v')
-      	   .exec((err, data) => {
+		   .populate('user',{_id:1,email:1,username:1})
+       	   .exec((err, data) => {
 	          if (err) {
 	            res.json(Boom.badRequest(err));
 	            return;
@@ -24,6 +25,7 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 
 	router.get('/',(req,res)=>{
 		Book.find().select('-__v')
+			.populate('user',{_id:1,email:1,username:1})
 			.exec((err,data)=>{
 				if(err)
 				return res.json(Boom.badRequest(err));
@@ -34,12 +36,14 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 	});
 	router.post('',authorizationCheck("admin"),async(req,res)=>{
 		let book=new Book(req.body);
+		book.user=req.decoded.id;
+ 
 		book.save((err,data)=>{
 				if(err){
 				 res.json(Boom.badRequest(err));
 				 return
 				}
-    	    res.json({ message: 'Book created!', data }).code(201);
+    	    res.json({ message: 'Book created!', data }).status(201);
 
 		})
 	});

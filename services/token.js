@@ -5,7 +5,7 @@ function createToken(user){
 	console.log(secret);
 
 	return jwt.sign({
-		sub:user.id,
+		id:user.id,
 		username:user.username,
 		roles:user.roles,
 		gravatar:createGravatarUrl(user.email),
