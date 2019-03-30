@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const Boom = require('boom');
-let jwt = require('jsonwebtoken');
+ let jwt = require('jsonwebtoken');
 const secret=require('../config/keys').JWT_SECRET_KEY;
 
 function verifyUniqueUser(req, res,next) {
@@ -13,11 +12,11 @@ function verifyUniqueUser(req, res,next) {
   }, (err, user) => {
     if (user) {
       if (user.username === req.body.username) {
-        res.json(Boom.badRequest('Username taken'));
+        res.boom.badRequest('Username taken');
         return;
       }
       if (user.email === req.body.email) {
-        res.json(Boom.badRequest('Email taken'));
+        res.boom.badRequest('Email taken');
         return;
       }
     }
@@ -26,6 +25,8 @@ function verifyUniqueUser(req, res,next) {
 }
 
 function verifyCredentials(req,res,next){
+	console.log("body");
+	console.log(req.body);
 const password = req.body.password;
 	User.findOne({ 
 	    $or: [ 
@@ -41,11 +42,11 @@ const password = req.body.password;
 	          next();
 	        }
 	        else {
-	          res.json(Boom.badRequest('Incorrect password!'));
+	          res.boom.badRequest('Incorrect password!');
 	        }
 	      });
 	    } else {
-	      res.json(Boom.badRequest('Incorrect username or email!'));
+	      res.boom.badRequest('Incorrect username or email!');
 	    }
 	  });
 }
@@ -60,7 +61,7 @@ function authorizationCheck(...allowedRoles){
 	     const userRoles = user.roles || [];
 	     const foundRoles = roles.filter(r => userRoles.some(ur => ur === r));
 			if (!foundRoles.length) {
-	         return res.json(Boom.forbidden('You dont have permission to do this'));
+	         return res.boom.forbidden('You dont have permission to do this');
 	        }
 	  	next();
 	}
@@ -69,7 +70,7 @@ function checkToken(req,res,next)
 	{
 	  let token = req.headers['x-access-token'] || req.headers['authorization'] || "";
 	  if(token=="")
-	   return res.json(Boom.badRequest('Token is not valid'));
+	   return res.boom.badRequest('Token is not valid');
 
 	  if (token.startsWith('Bearer ')) {
 	    token = token.split(' ')[1];
@@ -77,14 +78,14 @@ function checkToken(req,res,next)
 	  if (token) {
 	    jwt.verify(token, secret, (err, decoded) => {
 	      if (err) {
-          res.json(Boom.badRequest('Token is not valid'));
+          res.boom.badRequest('Token is not valid');
 	      } else {
 	        req.decoded = decoded;
 	        next();
 	      }
 	    });
 	  } else {
-	       res.json(Boom.badRequest('Token is not valid'));
+	    res.boom.badRequest('Token is not valid');
 	  }
 	}
 module.exports = {

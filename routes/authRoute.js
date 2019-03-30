@@ -1,4 +1,3 @@
-const Boom = require('boom');
 const express = require('express');
 const mongoose = require('mongoose');
 const jwt  =  require('jsonwebtoken');
@@ -19,12 +18,11 @@ const router = express.Router();
 		user.email=req.body.email;
 		user.username=req.body.username; 
 		user.roles=req.body.roles || ['admin'];
-		console.log(user.role);
 		let hash = bcrypt.hashSync(req.body.password, 10);
 		user.password=hash;
 		user.save((err, user) => {
 	       if (err) {
-	         throw Boom.badRequest(err);
+	          res.boom.badRequest(err);
 	       }
        		 res.json({ token:createToken(user) });
         });

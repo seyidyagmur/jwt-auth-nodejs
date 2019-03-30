@@ -1,4 +1,3 @@
-const Boom = require('boom');
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -11,11 +10,11 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 		   .populate('user',{_id:1,email:1,username:1})
        	   .exec((err, data) => {
 	          if (err) {
-	            res.json(Boom.badRequest(err));
+	            res.boom.badRequest(err);
 	            return;
 	          }
 	          if (!data) {
-	            res.json(Boom.notFound('Instructor not found!'));
+	            res.boom.notFound('Instructor not found!');
 	            return;
 	          }
 	          res.json(data);
@@ -28,9 +27,9 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 			.populate('user',{_id:1,email:1,username:1})
 			.exec((err,data)=>{
 				if(err)
-				return res.json(Boom.badRequest(err));
+				return res.boom.badRequest(err);
 				if(!data.length)
-        	   	return res.json(Boom.notFound('No book found!'));
+        	   	return res.boom.notFound('No book found!');
         	 	res.json(data);
 			});
 	});
@@ -40,7 +39,7 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
  
 		book.save((err,data)=>{
 				if(err){
-				 res.json(Boom.badRequest(err));
+				 res.boom.badRequest(err);
 				 return
 				}
     	    res.json({ message: 'Book created!', data }).status(201);

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabsModule, AlertModule } from 'ngx-bootstrap';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { AuthService } from './auth/auth.service';
 	  FormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
 	TabsModule.forRoot(),
 	AlertModule.forRoot()
   ],
