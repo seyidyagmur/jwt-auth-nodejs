@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
- let jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const cache =require('./cache');
 const secret=require('../config/keys').JWT_SECRET_KEY;
 
 function verifyUniqueUser(req, res,next) {
@@ -64,7 +65,7 @@ function authorizationCheck(...allowedRoles){
 	  	next();
 	}
 }
-function checkToken(req,res,next)
+ async function checkToken(req,res,next)
 	{
 	  let token = req.headers['x-access-token'] || req.headers['authorization'] || "";
 	  if(token=="")
@@ -73,12 +74,19 @@ function checkToken(req,res,next)
 	  if (token.startsWith('Bearer ')) {
 	    token = token.split(' ')[1];
 	  }
+	  //control if requested token in blacklist
+	  let isTokenInBlackList=await cache.inBlackList(token);
+	  if(isTokenInBlackList){
+	  	return res.boom.badRequest('Token is not valid');
+	  }
+	  //
 	  if (token) {
 	    jwt.verify(token, secret, (err, decoded) => {
 	      if (err) {
           res.boom.badRequest('Token is not valid');
 	      } else {
 	        req.decoded = decoded;
+	        req.token=token;
 	        next();
 	      }
 	    });

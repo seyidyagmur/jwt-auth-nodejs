@@ -5,6 +5,8 @@ const bcrypt  =  require('bcrypt');
 const User = require('../models/User');
 const verifyUniqueUser = require('../services/authFunction').verifyUniqueUser;
 const verifyCredentials = require('../services/authFunction').verifyCredentials;
+const checkToken = require('../services/authFunction').checkToken;
+const cache = require('../services/cache');
 const createToken = require('../services/token');
 
 const router = express.Router();
@@ -28,9 +30,10 @@ const router = express.Router();
         });
 	});
 
-	router.post('/logout',async(req,res)=>{
-		//I'll add blacklist for not expired tokens
-
+	router.get('/logout',checkToken,async(req,res)=>{
+		//if token not expired
+		await cache.storeInBlackList(req.token,req.decoded);
+		res.json({result:"OK"})
 	});
 
 module.exports = router;
