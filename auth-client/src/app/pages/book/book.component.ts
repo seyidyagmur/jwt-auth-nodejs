@@ -22,11 +22,10 @@ export class BookComponent implements OnInit {
   private getBooks(){
 	  this.bookService.getBooks()
 		  .subscribe(
-		  	response => {this.books=response
-		  		console.log(this.books)},
+		  	response => {this.books=response},
 		  	error=>{console.log(error.message)}
 		  	)
   }
-  
+
 
 }

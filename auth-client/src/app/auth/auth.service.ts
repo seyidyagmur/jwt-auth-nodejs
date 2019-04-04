@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return jwtDecode(this.getToken()).role === 'admin';
+    return jwtDecode(this.getToken()).roles.indexOf('admin')>-1;
   }
 
   getToken(): string {
@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   getUseRole(): string {
-    return jwtDecode(this.getToken()).role;
+    return jwtDecode(this.getToken()).roles;
   }
 
   private isTokenExpired(token: string , offsetSeconds?: number): boolean {

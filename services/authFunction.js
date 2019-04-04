@@ -25,8 +25,6 @@ function verifyUniqueUser(req, res,next) {
 }
 
 function verifyCredentials(req,res,next){
-	console.log("body");
-	console.log(req.body);
 	const password = req.body.password;
 	User.findOne({ 
 	    $or: [ 
