@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookService } from './book.service';
+
 import * as md5 from 'md5';
 
 @Component({
@@ -9,9 +11,20 @@ import * as md5 from 'md5';
 export class BookComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private bookService:BookService) { }
+
 
   ngOnInit() {
+	  this.getBooks();
   }
  
+
+  private getBooks(){
+	  this.bookService.getBooks()
+		  .subscribe(
+		  	response => {console.log(response)},
+		  	error=>{console.log(error.message)}
+		  	)
+  }
+
 }

@@ -23,6 +23,7 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 	});
 
 	router.get('/',(req,res)=>{
+		console.log("girdi");
 		Book.find().select('-__v')
 			.populate('user',{_id:1,email:1,username:1})
 			.exec((err,data)=>{

@@ -14,6 +14,9 @@ import { NewBookComponent } from './pages/new-book/new-book.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AuthService } from './auth/auth.service';
+import { ApiService } from './auth/api.service';
+import { BookService} from './pages/book/book.service';
+
 
 @NgModule({
   declarations: [
@@ -30,11 +33,13 @@ import { AuthService } from './auth/auth.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-	TabsModule.forRoot(),
-	AlertModule.forRoot()
+	  TabsModule.forRoot(),
+  	AlertModule.forRoot()
   ],
   providers: [
-    AuthService
+    AuthService,
+    ApiService,
+    BookService
   ],
   bootstrap: [AppComponent]
 })

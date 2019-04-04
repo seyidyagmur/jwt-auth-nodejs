@@ -15,7 +15,7 @@ export class LoginComponent {
    onLoginSubmit(credentials) {
     this.auth.login(credentials)
       .subscribe(
-		response => { console.log(response); return this.auth.finishAuthentication(response.token)},
+		response => { console.log(response);},
         error => this.errorMessage = error.message
       );
   }
@@ -23,7 +23,7 @@ export class LoginComponent {
    onSignupSubmit(credentials) {
     this.auth.signup(credentials)
       .subscribe(
-        response => this.auth.finishAuthentication(response.token),
+        response => {console.log},
         error => this.errorMessage = error.message
       );
   }
