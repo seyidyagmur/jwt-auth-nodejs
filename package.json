@@ -4,8 +4,10 @@
   "description": "Auth with NodeJS and Angular 7",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server":"nodemon server.js --ignore tests",
+    "client":"npm run start --prefix auth-client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

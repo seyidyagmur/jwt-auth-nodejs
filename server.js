@@ -5,11 +5,11 @@ const bodyParser=require('body-parser');
 const glob=require('glob');
 const boom = require('express-boom');
 
-const keys=require('./config/keys');
+const keys=require('./server/config/keys');
 const path = require('path');
-const authRoute = require('./routes/authRoute');
-const bookRoute = require('./routes/bookRoute');
-const checkToken = require('./services/authFunction').checkToken;
+const authRoute = require('./server/routes/authRoute');
+const bookRoute = require('./server/routes/bookRoute');
+const checkToken = require('./server/services/authFunction').checkToken;
 var cors = require('cors')
 
 const app=express();
