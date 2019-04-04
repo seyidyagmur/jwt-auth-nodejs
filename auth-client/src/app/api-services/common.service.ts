@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 
 @Injectable()
-export class BookService {
+export class CommonService {
 
 	constructor(private apiService: ApiService) { }
 
@@ -23,4 +23,10 @@ export class BookService {
 			}));
 	}
 
+	public logout():Observable<any>{
+		return this.apiService.apiGetReq('auth/logout')
+			.pipe(map(res => {
+				return res;
+			}));
+	}
 }

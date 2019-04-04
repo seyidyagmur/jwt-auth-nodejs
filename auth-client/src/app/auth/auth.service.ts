@@ -5,11 +5,13 @@ import * as jwtDecode from 'jwt-decode';
 import { API_URL } from './../app.constants';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import {CommonService} from '../api-services/common.service';
+
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router,private commonService:CommonService) { 
   }
  
 
@@ -46,6 +48,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.commonService.logout().subscribe(res => { }, err => { });
     localStorage.removeItem('token');
   }
 

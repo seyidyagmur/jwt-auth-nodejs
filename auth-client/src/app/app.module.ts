@@ -15,7 +15,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AuthService } from './auth/auth.service';
 import { ApiService } from './auth/api.service';
-import { BookService } from './api-services/book.service';
+import { CommonService } from './api-services/common.service';
 import { AuthGuard } from './auth/authguard.service';
 import { RoleGuard } from './auth/roleguard.service';
 import { LoginGuard } from './auth/loginguard.service';
@@ -41,7 +41,7 @@ import { LoginGuard } from './auth/loginguard.service';
   providers: [
     AuthService,
     ApiService,
-    BookService,
+    CommonService,
     AuthGuard,
     RoleGuard,
     LoginGuard

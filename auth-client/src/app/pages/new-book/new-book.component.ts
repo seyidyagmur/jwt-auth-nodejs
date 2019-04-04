@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BookService } from '../../api-services/book.service';
+import { CommonService } from '../../api-services/common.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,12 +11,12 @@ import { Location } from '@angular/common';
 export class NewBookComponent implements OnInit {
 
 
-	constructor(private bookService: BookService,private router:Router,private location:Location) { }
+	constructor(private commonService: CommonService,private router:Router,private location:Location) { }
 
   ngOnInit() {}
 
   addBook(content){
-  		this.bookService.addBook(content)
+  		this.commonService.addBook(content)
 			.subscribe(
 				response => {
 					this.router.navigate(['book'])

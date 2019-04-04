@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from '../../api-services/book.service';
+import { CommonService } from '../../api-services/common.service';
 import {Book} from '../../models/Book'
 import * as md5 from 'md5';
 
@@ -11,7 +11,7 @@ import * as md5 from 'md5';
 export class BookComponent implements OnInit {
 
 	books:Book[];
-  constructor(private bookService:BookService) { }
+  constructor(private commonService:CommonService) { }
 
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class BookComponent implements OnInit {
  
 
   private getBooks(){
-	  this.bookService.getBooks()
+	  this.commonService.getBooks()
 		  .subscribe(
 		  	response => {this.books=response},
 		  	error=>{console.log(error.message)}
