@@ -35,6 +35,7 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 			});
 	});
 	router.post('',authorizationCheck("admin"),async(req,res)=>{
+		console.log(req.decoded);
 		let book=new Book(req.body);
 		book.user=req.decoded.id;
  

@@ -6,7 +6,7 @@ const bookModel=new Schema({
 	author:{type:String,required:true},
 	book_image:{type:String,required:true},
 	publisher_name:{type:String,required:true},
-	publish_year:{type:String,required:false},
+	publish_year:{type:String,required:true},
 	user:{type:Schema.Types.ObjectId,ref:'User'}
 });
 module.exports=mongoose.model('Book',bookModel);

@@ -69,8 +69,6 @@ function authorizationCheck(...allowedRoles){
 function checkToken(req,res,next)
 	{
 	  let token = req.headers['x-access-token'] || req.headers['authorization'] || "";
-	  console.log("iki token:");
-	  console.log(req.headers['authorization']);
 	  if(token=="")
 	   return res.boom.badRequest('Token is not valid');
 

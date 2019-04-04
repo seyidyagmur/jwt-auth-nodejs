@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from '../../auth/api.service';
+import { ApiService } from '../auth/api.service';
 import { map } from 'rxjs/operators';
 
 
@@ -10,7 +10,7 @@ export class BookService {
 	constructor(private apiService: ApiService) { }
 
 	public getBooks(): Observable<any> {
-		return this.apiService.apiGetReq('books/')
+		return this.apiService.apiGetReq('books')
 			.pipe(map(res => {
 				return res;
 			}));

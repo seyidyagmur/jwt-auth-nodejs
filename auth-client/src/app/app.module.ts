@@ -15,7 +15,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AuthService } from './auth/auth.service';
 import { ApiService } from './auth/api.service';
-import { BookService} from './pages/book/book.service';
+import { BookService } from './api-services/book.service';
 
 
 @NgModule({

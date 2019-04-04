@@ -1,0 +1,29 @@
+
+  <button type="button" class="btn btn-primary back-button" (click)="goBack()">Go Back</button>
+
+<div class="col-sm-6 offset-sm-3">
+  <form #newBookForm="ngForm" (ngSubmit)="addBook(newBookForm.value)">
+    <div class="form-group">
+      <label for="first_name" class="">Book Name</label>
+      <input type="text" class="form-control" placeholder="eg. .Net via CLR" name="book_name" ngModel required>
+    </div>
+    <div class="form-group">
+      <label for="last_name" class="">Author</label>
+      <input type="text" class="form-control" placeholder="eg. Jeffrey Ritcher" name="author" ngModel required>
+    </div>
+     <div class="form-group">
+      <label for="last_name" class="">Book URL</label>
+      <input type="text" class="form-control" placeholder="eg. https://images-na.ssl-images-amazon.com/images/I/41zZ5aN3ypL._SX408_BO1,204,203,200_.jpg" name="book_image" ngModel required>
+    </div>
+     <div class="form-group">
+      <label for="email" class="">Publish Year</label>
+      <input type="text" class="form-control" placeholder="eg. 2013" name="publish_year" ngModel required>
+    </div>
+     <div class="form-group">
+      <label for="email" class="">Publisher Company</label>
+      <input type="text" class="form-control" placeholder="eg. Amazon" name="publisher_name" ngModel required>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

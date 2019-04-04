@@ -1,0 +1,13 @@
+<h1>Profile</h1>
+
+    <div class="row">
+        <div class="col-md-2 col-sm-3">
+        <img [src]="profile.gravatar" alt="Gravatar">
+        <h2>{{ profile.username }}</h2>
+        <p><i class="glyphicon glyphicon-envelope"></i> {{ profile.roles }}</p>
+      </div>
+      <div class="col-md-9 col-sm-9">
+        <h4>Payload</h4>
+        <pre>{{ payload | json }}</pre>
+      </div>
+    </div>

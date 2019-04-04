@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BookService } from '../../api-services/book.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-new-book',
@@ -9,10 +11,24 @@ import { Router } from '@angular/router';
 export class NewBookComponent implements OnInit {
 
 
-  constructor() {}
+	constructor(private bookService: BookService,private router:Router,private location:Location) { }
 
   ngOnInit() {}
 
+  addBook(content){
+  		this.bookService.addBook(content)
+			.subscribe(
+				response => {
+					this.router.navigate(['book'])
+				},
+				error => {
+				 console.log(error.message) }
+				)
+  }
+
+  goBack(){
+	  this.location.back();
+  }
    
 
 }

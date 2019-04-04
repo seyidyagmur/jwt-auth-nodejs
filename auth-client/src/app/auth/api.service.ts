@@ -16,12 +16,7 @@ export class ApiService {
 		return this.http.post(`${API_URL}${url}`, JSON.stringify(data), this.addHeaders())
 	}
 	apiGetReq(url): Observable<any>{
-		let headers = new HttpHeaders().append('content-type', 'application/json');
-		headers = headers.append('Accept', 'application/json');
-
-		var token = localStorage.getItem('token');
-		 headers =headers.append("Authorization", 'Bearer ' + token);
-		return this.http.get(`${API_URL}${url}`, { headers: headers });
+		 return this.http.get(`${API_URL}${url}`, this.addHeaders());
 	}
 
 	addHeaders() {
