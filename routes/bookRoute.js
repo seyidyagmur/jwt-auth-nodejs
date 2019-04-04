@@ -23,7 +23,6 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 	});
 
 	router.get('/',(req,res)=>{
-		console.log("girdi");
 		Book.find().select('-__v')
 			.populate('user',{_id:1,email:1,username:1})
 			.exec((err,data)=>{
@@ -35,7 +34,6 @@ const authorizationCheck = require('../services/authFunction').authorizationChec
 			});
 	});
 	router.post('',authorizationCheck("admin"),async(req,res)=>{
-		console.log(req.decoded);
 		let book=new Book(req.body);
 		book.user=req.decoded.id;
  

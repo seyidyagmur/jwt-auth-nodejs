@@ -7,8 +7,6 @@
     <li>Protecting client side routes with <code>CanActivate</code></li>
     <li>Created blacklist lib for not-expired tokens in the backend</li>
   </ul>
-  <p> <a class="btn btn-primary" routerLink="/login"   role="button">Log In</a></p>
-  <p> <a class="btn btn-primary" routerLink="/signout" role="button">Log Out</a></p>
-
-
+  <p> <a class="btn btn-primary" routerLink="/login"  *ngIf="!auth.isAuthenticated()" role="button">Log In</a></p>
+  <p> <a class="btn btn-primary" routerLink="" (click)="auth.logout()"   *ngIf="auth.isAuthenticated()"  role="button">Log Out</a></p>
 </div>

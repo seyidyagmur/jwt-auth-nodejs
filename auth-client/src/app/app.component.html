@@ -1,7 +1,7 @@
  <nav class="navbar navbar-expand-md navbar-default bg-light">
    <a class="navbar-brand" routerLink="/">Angular 7 Auth</a>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
+        <ul *ngIf="auth.isAuthenticated()" class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/book">Books</a>
             </li>
@@ -13,11 +13,11 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li *ngIf="!auth.isAuthenticated()" class="nav-item">
                 <a class="nav-link" routerLink="/login">Log In</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/signout">Log Out</a>
+            <li *ngIf="auth.isAuthenticated()" class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="auth.logout()">Log Out</a>
             </li>
         </ul>
     </div>
