@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "client-install": "npm install --prefix auth-client",
     "server":"nodemon server.js --ignore tests",
     "client":"npm run start --prefix auth-client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
