@@ -29,6 +29,6 @@ Pull requests are welcome.
  
 
 ## License & copyright
-@danger1 - Seyid Yagmur
+@seyidyagmur - Seyid Yagmur
 
 Licensed under the [MIT License](LICENSE).
