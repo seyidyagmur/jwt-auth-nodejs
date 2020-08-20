@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/danger1/jwt-auth-nodejs#readme",
   "dependencies": {
-    "bcrypt": "^3.0.5",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
